@@ -1,30 +1,34 @@
+import java.util.Scanner;
 import java.util.Random;
-import java.util.Scanner;
-import java.util.Scanner;
-public class Diver {
- public static void main(String args[]) {
-	 int numDice=3, trial=3;
-	 int playercount=0,computercount=0;
-	 Random choose=new Random();
-	 Scanner sc=new Scanner(System.in);
-	 System.out.println("Choose Your Target Number");
-	 int playertarget=sc.nextInt();
-	 
-	Game player=new Game(numDice,trial) ;
-	playercount=player.play("Player",playertarget);
-	int computertarget=choose.nextInt(6)+1;
-	System.out.println("Computer target "+computertarget);
-	Game computer=new Game(numDice,trial) ;
-	computercount=computer.play("Computer",computertarget);
-	if(playercount>computercount) {
-		 System.out.println("You win");
-	}
-	else if(playercount<computercount) {
-		 System.out.println("Computer win");
-			}
-	else  System.out.println("Draw");
-	
-	
-		sc.close();
- }
+public class Game {
+	int numDice,trial;
+	Random rand;
+    Scanner sc;
+    public Game(int numDice,int trial) {
+    	this.numDice=numDice;
+    	this.trial=trial;
+    	rand=new Random();
+    	sc=new Scanner(System.in);
+    }
+    	public int play(String who, int target) {
+    		int dice[]=new int[numDice];
+    		int count=0;
+    		for(int i=0;i<trial;i++) {
+    			for(int j=0;j<numDice;j++) {
+    				dice[j]=rand.nextInt(6)+1;
+    			}
+    		}
+    		System.out.println("Press Enter");
+    		sc.nextLine();
+    		for (int j: dice) {
+    			System.out.println(j+" ")	;	
+    		}
+    		System.out.println();
+    		for(int j=0;j<numDice;j++) {
+    			if(dice[j]==target)count++;
+    		}
+    		System.out.println(who+" gots "+count+" Points");	
+ 
+    	return count;
+    }
 }
